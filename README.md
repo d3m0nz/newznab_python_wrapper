@@ -1,5 +1,5 @@
 #Newznab Python Wrapper
-UPDATED TO PYTHON 3
+UPDATED TO WORK WITH PYTHON 3  
 * **Author**: [Gustavo Hoirisch](https://github.com/gugahoi)
 
 Simple python wrapper for NewzNab API calls.
