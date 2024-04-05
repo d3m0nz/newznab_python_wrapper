@@ -1,7 +1,8 @@
 # -*- coding: utf-8 -*-
 # Copyright (c) 2013 Gustavo Hoirisch <gugahoi@gmail.com>
-import urllib2
-from urllib import quote_plus
+import urllib
+from urllib.parse import quote_plus
+import urllib.request
 try:
     import json
 except ImportError:
@@ -47,16 +48,16 @@ class wrapper:
 
     def build_url(self, method='caps', params={}):
         parameters = ''
-        for p, v in params.iteritems():
+        for p, v in params.items():
             parameters += '&%s=%s' % (p, quote_plus(v))
 
         if self.json:
             parameters += '&o=json'
 
-        url = 'http://%s/api?t=%s%s&apikey=%s' % (self.url, method, parameters, self.api)
+        url = 'https://%s/api?t=%s%s&apikey=%s' % (self.url, method, parameters, self.api)
 
         if self.dev:
-            print url
+            print (url)
 
         return url
 
@@ -64,13 +65,13 @@ class wrapper:
         result = '{}'
         try:
             hdr = {'User-Agent': 'Mozilla/5.0'}
-            r = urllib2.Request(url, headers=hdr)
-            result = urllib2.urlopen(r).read()
-        except Exception, e:
+            r = urllib.request.Request(url, headers=hdr)
+            result = urllib.request.urlopen(r).read()
+        except Exception as e:
             raise e
 
         if self.dev:
-            print result
+            print (result)
         if self.json:
             result = json.loads(result)
 
@@ -106,7 +107,7 @@ class wrapper:
         offset=50   The 0 based query offset defining which part of the response we want.
         """
         params = {}
-        for key, value in extras.iteritems():
+        for key, value in extras.items():
             params[key] = value
 
         return self.query(self.build_url('search', params))
@@ -126,9 +127,9 @@ class wrapper:
         offset=50   The 0 based query offset defining which part of the response we want.
         """
         params = {}
-        for key, value in extras.iteritems():
+        for key, value in extras.items():
             params[key] = value
-            print '%s = %s' % (key, value)
+            print ('%s = %s' % (key, value))
 
         return self.query(self.build_url('tvsearch', params))
 
@@ -146,9 +147,9 @@ class wrapper:
         offset=50   The 0 based query offset defining which part of the response we want.
         """
         params = {}
-        for key, value in extras.iteritems():
+        for key, value in extras.items():
             params[key] = value
-            print '%s = %s' % (key, value)
+            print ('%s = %s' % (key, value))
 
         return self.query(self.build_url('movie', params))
 
@@ -169,9 +170,9 @@ class wrapper:
         offset=50   The 0 based query offset defining which part of the response we want.
         """
         params = {}
-        for key, value in extras.iteritems():
+        for key, value in extras.items():
             params[key] = value
-            print '%s = %s' % (key, value)
+            print ('%s = %s' % (key, value))
 
         return self.query(self.build_url('music', params))
 
@@ -187,9 +188,9 @@ class wrapper:
         offset=50   The 0 based query offset defining which part of the response we want.
         """
         params = {}
-        for key, value in extras.iteritems():
+        for key, value in extras.items():
             params[key] = value
-            print '%s = %s' % (key, value)
+            print ('%s = %s' % (key, value))
 
         return self.query(self.build_url('book', params))
 
